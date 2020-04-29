@@ -93,7 +93,7 @@ do
     fi
 
     # IMAGE EXPORT
-    sudo ctr image export $tarName $imageFullPath
+    sudo ctr image export --platform linux/amd64 $tarName $imageFullPath
     if [ $? -gt 0 ]; then
         echo "Could be exported image: $imageFullPath"
         failedList+=("$imageFullPath")
@@ -111,4 +111,5 @@ echo "FAILED COUNT: ${#failedList[@]}"
 if [ ${#failedList[@]} -gt 0 ]; then
     echo "FAILED LIST" > "$currentPath/result.log"
     echo ${failedList[@]} | sed -r -e 's/\s+/\n/g' >> "$currentPath/result.log"
+    echo "CHECK LOG: $currentPath/result.log"
 fi
